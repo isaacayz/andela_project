@@ -3,6 +3,7 @@ var express     =    require('express'),
     app         =    express(),
     bodyParser  =    require('body-parser'),
     mongoose    =    require('mongoose'),
+    flash        =    require('connect-flash'),
     Task = require('./api/models/model'); //created model loading here
 
 mongoose.connect("mongodb://localhost/studentDB");
@@ -10,6 +11,7 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
+app.use(require('connect-flash')())
 
 app.use(function(req,res,next){
     var _send = res.send;
@@ -30,7 +32,14 @@ app.get("/", function (req, res) {
 });
 
 app.get("/students", function (req, res) {
-    res.render('students');
+    Students.find({}, function (err, allStudents) {
+       if(err) {
+           console.log(err);
+       } else {
+           res.render('students', {students: allStudents});
+       }
+    });
+
 });
 
 app.post("/students", function (req, res) {

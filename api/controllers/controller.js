@@ -16,6 +16,7 @@ exports.create_a_student = function(req, res) {
     new_student.save(function(err, student) {
         if (err)
             res.send(err);
+        req.flash('success', 'Added successfully!');
         res.json(student);
     });
 };
@@ -32,6 +33,7 @@ exports.update_a_student = function(req, res) {
     Students.findOneAndUpdate({_id: req.params.studentId}, req.body, {new: true}, function(err, student) {
         if (err)
             res.send(err);
+        req.flash('success', 'Student details Updated');
         res.json(student);
     });
 };
@@ -40,6 +42,6 @@ exports.delete_a_student = function(req, res) {
     Students.remove({_id: req.params.studentId}, function(err, student) {
         if (err)
             res.send(err);
-        res.json({ message: 'Student successfully deleted' });
+        req.flash('danger', 'Student successfully deleted');
     });
 };
