@@ -1,18 +1,156 @@
 <% include layouts/header.ejs %>
 
-<!--
-<h1>The form page.</h1>
-
-<form method="post" action="/friends">
-    <input type="text" name="fname" placeholder="Your Firstname" />
-    <input type="text" name="lname" placeholder="Your Lastname" />
-    <input type="text" name="sex" placeholder="Your Sex" />
-    <input type="number" name="age" placeholder="Your Age" />
-    <input type="text" name="course" placeholder="Your course of study" />
-    <input type="submit" value="Submit" />
-</form>
--->
 <style>
+    /*Index.ejs starts here*/
+
+    .row{
+        margin-left:0px;
+        margin-right:0px;
+    }
+
+    #wrapper {
+        padding-left: 70px;
+        transition: all .4s ease 0s;
+        height: 100%
+    }
+
+    #sidebar-wrapper {
+        margin-left: -150px;
+        left: 70px;
+        width: 150px;
+        background: #222;
+        position: fixed;
+        height: 100%;
+        z-index: 10000;
+        transition: all .4s ease 0s;
+    }
+
+    .sidebar-nav {
+        display: block;
+        float: left;
+        width: 150px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    #page-content-wrapper {
+        padding-left: 0;
+        margin-left: 0;
+        width: 100%;
+        height: auto;
+    }
+    #wrapper.active {
+        padding-left: 150px;
+    }
+    #wrapper.active #sidebar-wrapper {
+        left: 150px;
+    }
+
+    #page-content-wrapper {
+        width: 100%;
+    }
+
+    #sidebar_menu li a, .sidebar-nav li a {
+        color: #999;
+        display: block;
+        float: left;
+        text-decoration: none;
+        width: 150px;
+        background: #252525;
+        border-top: 1px solid #373737;
+        border-bottom: 1px solid #1A1A1A;
+        -webkit-transition: background .5s;
+        -moz-transition: background .5s;
+        -o-transition: background .5s;
+        -ms-transition: background .5s;
+        transition: background .5s;
+    }
+    .sidebar_name {
+        padding-top: 25px;
+        color: #fff;
+        opacity: .7;
+    }
+
+    .sidebar-nav li {
+        line-height: 40px;
+        text-indent: 20px;
+    }
+
+    .sidebar-nav li a {
+        color: #999999;
+        display: block;
+        text-decoration: none;
+    }
+
+    .sidebar-nav li a:hover {
+        color: #fff;
+        background: rgba(255,255,255,0.2);
+        text-decoration: none;
+    }
+
+    .sidebar-nav li a:active,
+    .sidebar-nav li a:focus {
+        text-decoration: none;
+    }
+
+    .sidebar-nav > .sidebar-brand {
+        height: 65px;
+        line-height: 60px;
+        font-size: 18px;
+    }
+
+    .sidebar-nav > .sidebar-brand a {
+        color: #999999;
+    }
+
+    .sidebar-nav > .sidebar-brand a:hover {
+        color: #fff;
+        background: none;
+    }
+
+    #main_icon
+    {
+        float:right;
+        padding-right: 45px;
+        padding-top:20px;
+    }
+    .sub_icon {
+        float:right;
+        padding-right: 65px;
+        padding-top:10px;
+    }
+    .content-header {
+        height: 65px;
+        line-height: 65px;
+    }
+
+    .content-header h1 {
+        margin: 0;
+        margin-left: 20px;
+        line-height: 65px;
+        display: inline-block;
+    }
+
+    @media (max-width:767px) {
+        #wrapper {
+            padding-left: 70px;
+            transition: all .4s ease 0s;
+        }
+        #sidebar-wrapper {
+            left: 70px;
+        }
+        #wrapper.active {
+            padding-left: 150px;
+        }
+        #wrapper.active #sidebar-wrapper {
+            left: 150px;
+            width: 150px;
+            transition: all .4s ease 0s;
+        }
+    }
+    /*Index ends here*/
+
+    /*new .ejs*/
     #playground-container {
         height: 500px;
         overflow: hidden !important;
@@ -125,49 +263,70 @@
     }
 </style>
 
+<div id="wrapper" class="active">
 
-<div class="container">
-    <div class="row main">
-        <div class="main-login main-center">
-            <h5>Sign up once and watch any of our free demos.</h5>
-            <form class="" method="post" action="/students">
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul id="sidebar_menu" class="sidebar-nav">
+            <li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li>
+        </ul>
+        <ul class="sidebar-nav" id="sidebar">
+            <li><a href="new" class="btn btn-primary">Create Student<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+            <li><a href="../students" class="btn btn-primary"> List All<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+            <li><a href="new" class="btn btn-primary"> Edit<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+            <li><a href="new" class="btn btn-primary"> Delete Student<span class="sub_icon glyphicon glyphicon-link"></span></a></li>
+        </ul>
+    </div>
+
+    <!-- Page content -->
+    <div id="page-content-wrapper">
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+            <div class="row">
+                <div class="col-md-12">
+        <div class="container">
+         <div class="row main">
+            <div class="main-login main-center">
+                <h5>Kindly, enter Student's details accordingly.</h5>
+                <form class="" method="post" action="/students">
 
                 <div class="form-group">
-                    <label for="fname" class="cols-sm-2 control-label">Your First Name</label>
+                    <label for="fname" class="cols-sm-2 control-label">First Name</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" name="fname" id="name" class="form-control" placeholder="Enter your First name" />
+                            <input type="text" name="fname" id="name" class="form-control" placeholder="Student First name" />
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="lname" class="cols-sm-2 control-label">Your Last Name</label>
+                    <label for="lname" class="cols-sm-2 control-label">Last Name</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="lname" id="lname"  placeholder="Enter your Last name"/>
+                            <input type="text" class="form-control" name="lname" id="lname"  placeholder="Student Last name"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="sex" class="cols-sm-2 control-label">Username</label>
+                    <label for="sex" class="cols-sm-2 control-label">Sex</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="sex" id="sex"  placeholder="Enter your sex"/>
+                            <span class="input-group-addon"><i class="fa fa-neuter fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="sex" id="sex"  placeholder="M for Male; F for Female"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="dob" class="cols-sm-2 control-label">Age</label>
+                    <label for="age" class="cols-sm-2 control-label">Age</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="date" class="form-control" name="age" id="dob"  placeholder="Enter your age"/>
+                            <span class="input-group-addon"><i class="fa fa-calendar-o fa-lg" aria-hidden="true"></i></span>
+                            <input type="number" class="form-control" name="age" id="age"  placeholder="Enter student age"/>
                         </div>
                     </div>
                 </div>
@@ -175,8 +334,17 @@
                     <label for="course" class="cols-sm-2 control-label">Course</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="course" id="course"  placeholder="Course"/>
+                            <span class="input-group-addon"><i class="fa fa-universal-access fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="course" id="course"  placeholder="Course of study"/>
+                        </div>
+                    </div>
+                </div>
+                    <div class="form-group">
+                    <label for="matric" class="cols-sm-2 control-label">Matriculation number</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa  fa-sort-numeric-asc fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="matric" id="matric"  placeholder="Enter student matric num"/>
                         </div>
                     </div>
                 </div>
@@ -186,7 +354,15 @@
                 </div>
 
             </form>
+            </div>
+            </div>
+         </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
 </div>
+
 <% include layouts/footer.ejs %>

@@ -6,12 +6,13 @@ var express     =    require('express'),
     flash        =    require('connect-flash'),
     Task = require('./api/models/model'); //created model loading here
 
+app.use(express.static(__dirname + '/public'));
 mongoose.connect("mongodb://localhost/studentDB");
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-app.use(express.static(__dirname + '/public'));
-app.use(require('connect-flash')())
+
+app.use(require('connect-flash')());
 
 app.use(function(req,res,next){
     var _send = res.send;
@@ -42,13 +43,32 @@ app.get("/students", function (req, res) {
 
 });
 
+/*Students.create({
+    fname: "Ayomide",
+    lname: "Ige",
+    sex: "M",
+    age: 12,
+    course: 'Computer Science',
+    matric: '14/CS/0613',
+    desc: 'Ige Ayomide Isaac also known as Heywhy Tech, created this web app within 5 days!'
+}, function (err, created) {
+    if(err) {
+        console.log(err);
+    }  else {
+        console.log('Added successfully!');
+        console.log(created);
+    }
+});*/
+
 app.post("/students", function (req, res) {
     var fname = req.body.fname;
     var lname = req.body.lname;
     var sex = req.body.sex;
     var age = req.body.age;
     var course = req.body.course;
-    var newStudent = {fname: fname, lname: lname, sex: sex, age: age, course: course};
+    var matric = req.body.matric;
+    var desc = req.body.desc;
+    var newStudent = {fname: fname, lname: lname, sex: sex, age: age, course: course, matric: matric, desc: desc};
 
     Students.create(newStudent, function (err, created) {
         if(err) {
@@ -63,6 +83,17 @@ app.post("/students", function (req, res) {
 
 app.get("/students/new", function (req, res) {
     res.render("new");
+});
+
+app.get("/students/:id", function (req, res) {
+    Students.findById(req.params.id, function (err, found) {
+       if(err) {
+           console.log(err);
+       } else {
+           res.render('show', {student: found});
+       }
+    });
+
 });
 
 var routes = require('./api/routes/routes'); //importing route

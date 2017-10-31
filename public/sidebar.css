@@ -1,14 +1,5 @@
 /*Index.ejs starts here*/
 
-table {
-    background-color: gray;
-    color: black;
-}
-td {
-    background-color: rgba(135, 206, 235, 1);
-
-}
-
 .row{
     margin-left:0px;
     margin-right:0px;

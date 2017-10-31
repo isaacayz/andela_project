@@ -22,10 +22,10 @@ exports.create_a_student = function(req, res) {
 };
 
 exports.read_a_student = function(req, res) {
-    Students.findById(req.params.studentId, function(err, student) {
+    Students.findById(req.params.id, function(err, student) {
         if (err)
             res.send(err);
-       /* res.json(student);*/
+        res.json(student);
     });
 };
 
