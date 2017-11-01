@@ -1,18 +1,19 @@
 //The server file
-var express     =    require('express'),
-    app         =    express(),
-    bodyParser  =    require('body-parser'),
-    mongoose    =    require('mongoose'),
-    flash        =    require('connect-flash'),
-    Task = require('./api/models/model'); //created model loading here
+var express         =    require('express'),
+    app             =    express(),
+    methodOverride  =    require('method-override'),
+    bodyParser      =    require('body-parser'),
+    mongoose        =    require('mongoose'),
+    flash           =    require('connect-flash'),
+    Task            = require('./api/models/model'); //created model loading here
 
 app.use(express.static(__dirname + '/public'));
 mongoose.connect("mongodb://localhost/studentDB");
 mongoose.Promise = global.Promise;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
-
 app.use(require('connect-flash')());
+app.use(methodOverride('_method'));
 
 app.use(function(req,res,next){
     var _send = res.send;
@@ -102,6 +103,26 @@ app.get('/students/:id/edit', function (req, res) {
            res.redirect('/students');
        } else {
            res.render('edit', {student: found});
+       }
+    });
+});
+
+app.put('/students/:id', function (req, res) {
+   Students.findByIdAndUpdate(req.params.id, req.body.student, function (err, found) {
+      if(err){
+          res.redirect('/students');
+      } else {
+          res.redirect('/students/' + req.params.id)
+      }
+   });
+});
+
+app.delete('/students/:id', function (req, res) {
+    Students.findByIdAndRemove(req.params.id, function (err) {
+       if(err){
+           res.redirect('/students');
+       } else {
+           res.redirect('/students');
        }
     });
 });

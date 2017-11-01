@@ -16,7 +16,6 @@ exports.create_a_student = function(req, res) {
     new_student.save(function(err, student) {
         if (err)
             res.send(err);
-        req.flash('success', 'Added successfully!');
         res.json(student);
     });
 };
@@ -30,18 +29,17 @@ exports.read_a_student = function(req, res) {
 };
 
 exports.update_a_student = function(req, res) {
-    Students.findOneAndUpdate({_id: req.params.studentId}, req.body, {new: true}, function(err, student) {
+    Students.findOneAndUpdate({_id: req.params.id}, req.body, {new: true}, function(err, student) {
         if (err)
             res.send(err);
-        req.flash('success', 'Student details Updated');
         res.json(student);
     });
 };
 
 exports.delete_a_student = function(req, res) {
-    Students.remove({_id: req.params.studentId}, function(err, student) {
+    Students.remove({_id: req.params.id}, function(err, student) {
         if (err)
             res.send(err);
-        req.flash('danger', 'Student successfully deleted');
+        res.json(student);
     });
 };
