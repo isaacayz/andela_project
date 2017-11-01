@@ -96,6 +96,16 @@ app.get("/students/:id", function (req, res) {
 
 });
 
+app.get('/students/:id/edit', function (req, res) {
+    Students.findById(req.params.id, function (err, found) {
+       if(err) {
+           res.redirect('/students');
+       } else {
+           res.render('edit', {student: found});
+       }
+    });
+});
+
 var routes = require('./api/routes/routes'); //importing route
 routes(app); //register the route
 
