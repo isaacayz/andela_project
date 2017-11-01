@@ -23,13 +23,64 @@
         <div class="page-content inset">
             <div class="row">
                 <div class="col-md-12">
-                    <h1><b>Name:          </b> &nbsp;  <%= student.fname %> <%= student.lname %></h1>
-                    <p><b>Age:            </b> &nbsp;  <%= student.age %>    </p>
-                    <p><b>Sex:            </b> &nbsp;  <%= student.sex %>    </p>
-                    <p><b>Course of study:</b> &nbsp;  <%= student.course %> </p>
-                    <p><b>About student:  </b> &nbsp;  <%= student.matric %> </p>
-                    <p><b>About student:  </b> &nbsp;  <%= student.desc %>   </p>
-                    </p>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            <b>Name:&nbsp;</b>
+                        </dt>
+                        <dd>
+                            <%= student.fname %> <%= student.lname %>
+                        </dd>
+                        <dt>
+                            <b>Age:&nbsp;</b>
+                        </dt>
+                        <dd>
+                            <%= student.age %>
+                        </dd>
+                        <dt>
+                            <b>Sex:&nbsp;</b>
+                        </dt>
+                        <dd>
+                            <%= student.sex %>
+                        </dd>
+                        <dt>
+                            <b>Course of study:&nbsp;</b>
+                        </dt>
+                        <dd>
+                            <%= student.course %>
+                        </dd>
+                        <dt>
+                            <b>Matriculation number:&nbsp;</b>
+                        </dt>
+                        <dd>
+                            <%= student.matric %>
+                        </dd>
+                        <dt>
+                            <b>About student:&nbsp;</b>
+                        </dt>
+                        <dd>
+                            <%= student.desc %>
+                        </dd>
+
+
+                        <dt>
+                            <p data-placement="top" data-toggle="tooltip" title="Edit">
+                                    <a href="/students/<%= student._id %>/edit" class="btn btn-primary btn-xs" data-title="Edit" >
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </a>
+                            </p>
+                        </dt>
+                        <dd>
+                                <form action="/students/<%= student._id %>?_method=DELETE"  method="POST">
+                                    <p data-placement="top" data-toggle="tooltip" title="Delete">
+                                        <button class="btn btn-danger btn-xs" data-title="Delete" >
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </p>
+                                </form>
+                        </dd>
+
+                    </dl>
+
 
                 </div>
 

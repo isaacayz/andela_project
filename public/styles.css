@@ -267,3 +267,8 @@ span.input-group-addon i {
     font-size: 11px;
     text-align: center;
 }
+dl {
+    font-size: 30pt;
+    margin: 10% auto;
+    width: 80%;
+}
